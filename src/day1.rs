@@ -89,7 +89,7 @@ fn find_digits_or_words(input_line: &str) -> u32 {
         + last_digit.expect("Last digit failed to be recognized!")
 }
 
-pub fn part_one(input: Vec<String>) -> u32 {
+pub fn part_one(input: &Vec<String>) -> u32 {
     let mut sum: u32 = 0;
     for line in input {
         sum += find_digits(&line);
@@ -97,7 +97,7 @@ pub fn part_one(input: Vec<String>) -> u32 {
     return sum;
 }
 
-pub fn part_two(input: Vec<String>) -> u32 {
+pub fn part_two(input: &Vec<String>) -> u32 {
     let mut sum: u32 = 0;
     for line in input {
         sum += find_digits_or_words(&line);
@@ -107,10 +107,13 @@ pub fn part_two(input: Vec<String>) -> u32 {
 
 #[cfg(test)]
 mod tests {
-    use crate::day1::{part_one, part_two};
+    use super::*;
+    use crate::my_io::read_input_to_vector;
+    extern crate test;
+    use test::Bencher;
 
     #[test]
-    fn step_one() {
+    fn test_day1_part_1() {
         let result = 142;
         let input = vec![
             "1abc2".to_string(),
@@ -118,12 +121,12 @@ mod tests {
             "a1b2c3d4e5f".to_string(),
             "treb7uchet".to_string(),
         ];
-        let output = part_one(input);
+        let output = part_one(&input);
         assert_eq!(result, output);
     }
 
     #[test]
-    fn step_two() {
+    fn test_day1_part_2() {
         let result = 281;
         let input = vec![
             "two1nine".to_string(),
@@ -134,7 +137,23 @@ mod tests {
             "zoneight234".to_string(),
             "7pqrstsixteen".to_string(),
         ];
-        let output = part_two(input);
+        let output = part_two(&input);
         assert_eq!(result, output);
+    }
+
+    #[bench]
+    fn bench_day1_part_1(b: &mut Bencher) {
+        let input = read_input_to_vector("data/day1.txt");
+        b.iter(|| {
+            part_one(&input);
+        });
+    }
+
+    #[bench]
+    fn bench_day1_part_2(b: &mut Bencher) {
+        let input = read_input_to_vector("data/day1.txt");
+        b.iter(|| {
+            part_two(&input);
+        });
     }
 }
