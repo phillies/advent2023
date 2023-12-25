@@ -84,6 +84,10 @@ fn run(day: &String, input: &String) {
             let (result_1, result_2) = day10::solve(&read_input_to_vector(&input));
             println!("Maximum distance {} - inner tiles {}", result_1, result_2);
         }
+        "day11" => {
+            let (result_1, result_2) = day11::solve(&read_input_to_vector(&input));
+            println!("Distance sum {} - inner tiles {}", result_1, result_2);
+        }
         _ => {
             println!("No solution for this day yet!")
         }
