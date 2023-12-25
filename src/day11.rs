@@ -340,7 +340,15 @@ mod tests {
     fn bench_day11_part_1(b: &mut Bencher) {
         let input = read_input_to_vector("data/day11.txt");
         b.iter(|| {
-            solve(&input);
+            solve_part_1(&input);
+        });
+    }
+
+    #[bench]
+    fn bench_day11_part_2(b: &mut Bencher) {
+        let input = read_input_to_vector("data/day11.txt");
+        b.iter(|| {
+            solve_part_2(&input, 1000000);
         });
     }
 }
