@@ -7,6 +7,7 @@ use std::{env, fs};
 mod day1;
 mod day10;
 mod day11;
+mod day12;
 mod day2;
 mod day3;
 mod day4;
@@ -86,6 +87,13 @@ fn run(day: &String, input: &String) {
         }
         "day11" => {
             let (result_1, result_2) = day11::solve(&read_input_to_vector(&input));
+            println!(
+                "Distance sum {} - larger distance sum {}",
+                result_1, result_2
+            );
+        }
+        "day12" => {
+            let (result_1, result_2) = day12::solve(&read_input_to_vector(&input));
             println!("Distance sum {} - inner tiles {}", result_1, result_2);
         }
         _ => {

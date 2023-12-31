@@ -16,6 +16,7 @@ struct Galaxy {
     height: usize,
 }
 
+#[derive(Debug)]
 struct AncientGalaxy {
     sectors: Vec<char>,
     width: usize,
@@ -69,6 +70,20 @@ trait SpaceExploration {
         empty_cols
     }
     fn expand(self: &mut Self);
+
+    fn get_stars(self: &Self) -> Vec<Position> {
+        self.get_sectors()
+            .iter()
+            .enumerate()
+            .filter_map(|(index, entry)| {
+                if *entry == '#' {
+                    Some(self.index_to_position(index as i64))
+                } else {
+                    None
+                }
+            })
+            .collect()
+    }
 
     fn calculate_distance(self: &Self, left: &Position, right: &Position) -> i64;
 }
@@ -204,21 +219,6 @@ impl SpaceExploration for AncientGalaxy {
     }
 }
 
-fn get_stars(galaxy: &dyn SpaceExploration) -> Vec<Position> {
-    galaxy
-        .get_sectors()
-        .iter()
-        .enumerate()
-        .filter_map(|(index, entry)| {
-            if *entry == '#' {
-                Some(galaxy.index_to_position(index as i64))
-            } else {
-                None
-            }
-        })
-        .collect()
-}
-
 fn solve_part_1(input: &Vec<String>) -> i64 {
     let mut galaxy = Galaxy {
         sectors: input.iter().flat_map(|s| s.chars()).collect::<Vec<char>>(),
@@ -227,7 +227,7 @@ fn solve_part_1(input: &Vec<String>) -> i64 {
     };
     galaxy.expand();
 
-    let stars = get_stars(&galaxy);
+    let stars = galaxy.get_stars();
 
     stars
         .iter()
@@ -251,7 +251,7 @@ fn solve_part_2(input: &Vec<String>, empty_size: i64) -> i64 {
 
     ancient_galaxy.expand();
 
-    let stars = get_stars(&ancient_galaxy);
+    let stars = ancient_galaxy.get_stars();
 
     let distances = stars
         .iter()

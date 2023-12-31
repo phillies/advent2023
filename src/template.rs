@@ -27,7 +27,7 @@ mod tests {
 
     #[bench]
     fn bench_dayxx_part_1(b: &mut Bencher) {
-        let input = read_input_to_vector("data/dayx.txt");
+        let input = read_input_to_vector("data/dayxx.txt");
         b.iter(|| {
             solve(&input);
         });
