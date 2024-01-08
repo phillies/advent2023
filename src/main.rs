@@ -97,6 +97,13 @@ fn run(day: &String, input: &String) {
             let (result_1, result_2) = day12::solve(&read_input_to_vector(&input));
             println!("Distance sum {} - inner tiles {}", result_1, result_2);
         }
+        "day13" => {
+            let (result_1, result_2) = day13::solve(&read_input_to_vector(&input));
+            println!(
+                "Reflection sum {} - smudge reflection sum {}",
+                result_1, result_2
+            );
+        }
         _ => {
             println!("No solution for this day yet!")
         }
